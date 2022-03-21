@@ -1,98 +1,16 @@
-## This webpack (V5.70.0) boilerplate supports the following:
+## This demo shows a basic implementation of useOtp custom hook, it has the following functionality:
 
-- Testing using **jest**, **react-testing-library**
-- **SCSS** preprocessor
-- To enable **CSS modules** (each component has its own styles "no conflict between different components styles") => just open `/buildTools/constants.js` and set **isCssModules** to **true**. Then in every component add the required import as follows: `import classes from './scss/requiredStyles'`
-- Autoprefixer for CSS (it supports IE >= 11)
-- Hot reloading for **JS** & **CSS** and **redux** store (in development)
-- Prettier (for code format)
-- Docker setup for development
-
-## It has the following configuration for React:
-
-- React router dom
-- Redux & Redux thunk & & Redux logger & Redux devTool
-- Prop types
-- 2 environments {production: .env, development: .env.development}
-
-## It has the following mocks for Jest:
-
-- MockProvider => for mocking redux provider
-- MockReactIntlProvider => for mocking react-intl provider (if you are using it you need to download it)
-- MockRouter => for mocking react router
-- OverrideRenderOfRTL => overrides the render method of RTL with all providers
-
-## Prerequisites:
-
-- nodeJS > 14.X.X or Docker
-
-## Installing / Getting Started:
-
-### Development (locally):
-
-- Clone repo => `git clone git@github.com:react-custom-projects/webpack-react-boilerplate.git`
-- `cd webpack-react-boilerplate`
-- Install dependencies => `yarn install`
-- Start the development server => `yarn start`
-
-### Development (using Docker):
-
-- Clone repo => `git clone git@github.com:react-custom-projects/webpack-react-boilerplate.git`
-- `cd webpack-react-boilerplate`
-- Install dependencies (required for prettier) => `yarn install`
-- Start the development server => `docker-compose up --build`
-
-## Update environment variables:
-
-Please keep in mind that environment variables configured using webpack which means that you need to re-run the corresponding environment script (yarn start, yarn run build) if you update the environment file.
-
-## Configuring Prettier
-
-This build relies on [Prettier formatter](https://prettier.io/) to enforce a code style. And [ESLint](https://eslint.org/) for identifying problematic patterns found in JavaScript code.
-
-- Setting up prettier:
-
-  1- You can find steps on how to set up prettier formatter with WebStorm/PhpStorm [here](https://prettier.io/docs/en/webstorm.html#running-prettier-on-save-using-file-watcher).
-
-  Notes:
-
-  - It's better to use the local `node_modules` version of prettier instead of a global one. This is to avoid version conflicts (in case the globally installed version does not match with the versions specified in `package.json`). So when setting up the file watcher when you follow the steps from the above link you can set `program` to `$ProjectFileDir$\node_modules\.bin\prettier` (warning this assumes that node_modules sits in the root of your project. This will need to change if your directory structure changes).
-  - You will have to create file watchers for TS, TSX and SCSS files. The webpack build tools are already configured to work with `eslint` and `prettier`. The only thing needed is the file watchers.
-
-  2- Follow the next steps to set up **prettier** and **eslint** on **_VS Code_**:
-
-  - Install `prettier` plugin
-
-  - Install `eslint` plugin
-
-  - Open **_VS Code settings_** `CTRL + ,`:
-
-    a- Search for `formatter` => check **Format on save**
-
-    b- Search for `prettier` => add `.prettierrc` in **_Prettier: Config Path_** section && check **_Prettier: Require Config_**
-
-  3- Please refer to other tutorials if you are using a different IDE.
-
-## Site meta tags:
-
-- This app includes facebook, twitter and regular meta tags
-
-#### To update them:
-
-- Open constants.js file and update metaInfo object
-- Open src/assets/images and replace (favicon.png, metaImage.jpg) with your images but using the same name
-
-## Extra:
-
-- Private route guard => protect the given route based on a token.
-- Restricted route guard => protect the given route based on a token, and a list of permissions (can be an array or a string).
-- Restricted section => protect the given section based on a list of permissions (can be an array or a string).
-- Generic error boundary fallback component (you can customize it)
-- Cookies, local storage and sessions storage mangers to store data in the browser. (**Note:** the data encrypted using crypto-js package before storing it.)
-- Basic mixins `(scss/generic/_mixins.scss)`
-- Normalize styles `(scss/generic/_normalize.scss)`
-- App typography styles `(scss/generic/_typography.scss)`
-- 4 break points `(scss/generic/_variables.scss)`
+- Set and get OTP channel (mobile, email)
+- Set and get OTP value (one time password sent to the selected channel)
+- Set and get Proceed without OTP verification option
+- A flag to identify verification status
+- A flag to identify weather OTP sent or not so that we can display the verification page
+- A flag to identify weather we are interacting with the backend or not (can be used to show a loader or disable buttons)
+- A function to send OTP to the backend
+- A function to resend OTP to the backend
+- A function to verify the entered OTP through the backend
+- A function to change OTP channel if we are in the verification page
+- A function to reset the OTP hook (needed if we would like to reset the UI)
 
 ## Available Scripts
 
