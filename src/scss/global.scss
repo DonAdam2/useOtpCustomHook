@@ -2,6 +2,17 @@
 @import 'components.scss';
 @import 'containers.scss';
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .container {
   margin-right: auto;
   margin-left: auto;
@@ -9,5 +20,32 @@
   padding-right: 8px;
   width: calc(100vw - 1rem);
   max-width: 1170px;
-  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }

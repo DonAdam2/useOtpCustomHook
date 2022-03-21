@@ -1,0 +1,229 @@
+.modal {
+  margin: 0 auto;
+  z-index: 500;
+  background-color: $white;
+  width: calc(100% - 1rem);
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  cursor: initial;
+  transform: translateY(-100%);
+  opacity: 0;
+
+  & * {
+    box-sizing: border-box;
+  }
+
+  &.animate-modal {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .modal-btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.15rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &.modal-btn-primary {
+      color: $white;
+      background-color: $primary;
+      border-color: $primary;
+
+      &:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+
+      &:disabled {
+        background-color: lighten($primary, 30%);
+        border-color: lighten($primary, 30%);
+      }
+    }
+
+    &.modal-btn-secondary {
+      color: $white;
+      background-color: $secondary;
+      border-color: $secondary;
+
+      &:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+
+      &:disabled {
+        background-color: lighten($secondary, 30%);
+        border-color: lighten($secondary, 30%);
+      }
+    }
+
+    &.modal-btn-success {
+      color: $white;
+      background-color: $success;
+      border-color: $success;
+
+      &:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+      }
+
+      &:disabled {
+        background-color: lighten($success, 30%);
+        border-color: lighten($success, 30%);
+      }
+    }
+
+    &.modal-btn-danger {
+      color: $white;
+      background-color: $danger;
+      border-color: $danger;
+
+      &:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+
+      &:disabled {
+        background-color: lighten($danger, 30%);
+        border-color: lighten($danger, 30%);
+      }
+    }
+
+    &.modal-btn-warning {
+      background-color: $warning;
+      border-color: $warning;
+
+      &:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+      }
+
+      &:disabled {
+        background-color: lighten($warning, 30%);
+        border-color: lighten($warning, 30%);
+      }
+    }
+
+    &.modal-btn-info {
+      color: $white;
+      background-color: $info;
+      border-color: $info;
+
+      &:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+      }
+
+      &:disabled {
+        background-color: lighten($info, 30%);
+        border-color: lighten($info, 30%);
+      }
+    }
+
+    &.modal-btn-dark {
+      color: $white;
+      background-color: $dark;
+      border-color: $dark;
+
+      &:hover {
+        background-color: #23272b;
+        border-color: #1d2124;
+      }
+
+      &:disabled {
+        background-color: lighten($dark, 30%);
+        border-color: lighten($dark, 30%);
+      }
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .modal-header {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: 300;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    & > div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      margin: 0;
+      line-height: 1.42857143;
+      text-transform: capitalize;
+    }
+
+    .header-close-btn {
+      padding: 0;
+      cursor: pointer;
+      border: 0;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1;
+      color: black;
+      text-shadow: 0 1px 0 $white;
+      outline: none;
+      opacity: 0.2;
+      transition: opacity 0.15s;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    p {
+      margin: 5px 0 0;
+      font-size: 14px;
+    }
+  }
+
+  .modal-body {
+    position: relative;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .modal-footer {
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+  }
+}

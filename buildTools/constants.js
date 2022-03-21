@@ -7,7 +7,7 @@ module.exports = {
   environmentsDirectory: 'environments',
   jsSubDirectory: 'js/',
   cssSubDirectory: 'css/',
-  isCssModules: false,
+  isCssModules: true,
   metaInfo: {
     title: 'Adam Morsi',
     description: 'description',
