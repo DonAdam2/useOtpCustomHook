@@ -1,12 +1,13 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 //error boundary
 import { ErrorBoundary } from 'react-error-boundary';
 //error boundary fallback
 import ErrorBoundaryFallback from './ts/generic/ErrorBoundaryFallback';
-//pages
-import OtpVerificationPage from '@/ts/containers/pages/otpVerificationPage/OtpVerificationPage';
-import ModalExamplePage from '@/ts/containers/pages/modalExamplePage/ModalExamplePage';
+//routes
+import { routes } from '@/ts/routing/routingConstants/RoutesConfig';
+//containers
+import Header from '@/ts/containers/header/Header';
 
 const App = () => {
   return (
@@ -18,14 +19,11 @@ const App = () => {
       }}
     >
       <div className="container">
-        <div className="d-flex">
-          <NavLink to="/">Home</NavLink>
-          <span style={{ flex: '1' }} />
-          <NavLink to="/modal-example">Modal example</NavLink>
-        </div>
+        <Header />
         <Routes>
-          <Route path="/" element={<OtpVerificationPage />} />
-          <Route path="/modal-example" element={<ModalExamplePage />} />
+          {routes.map((el, i) => (
+            <Route key={i} path={el.path} element={el.element} />
+          ))}
         </Routes>
       </div>
     </ErrorBoundary>

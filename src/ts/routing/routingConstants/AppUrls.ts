@@ -1,3 +1,3 @@
 export const getHomePageUrl = () => '/';
 
-export const getLoginPageUrl = () => '/login';
+export const getModalExamplePageUrl = () => '/modal-example';
