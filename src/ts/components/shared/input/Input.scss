@@ -1,0 +1,399 @@
+@import '../../../../scss/generic/variables';
+
+.input-wrapper {
+  position: relative;
+  // min-height: $input-height * 1.75;
+  display: flex;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  &.outlinedWrapper {
+    .iconWrapper {
+      height: 75%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .iconWrapper {
+    width: 53px;
+    height: calc(#{$input-height} / 1.3);
+    bottom: calc(#{$input-height} / 9);
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    border-inline-end: 1px solid $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+    fill: $primary;
+
+    &.rightToLeft {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+
+  &.outlinedInputContainer {
+    min-height: $input-height * 1.75;
+
+    .input {
+      min-height: $input-height * 1.75;
+
+      &:focus,
+      &.pushLabelUp {
+        & + .label {
+          transform: translate(6px, -12px) scale(0.75);
+
+          &.rightToLeft {
+            transform: translate(-6px, -12px) scale(0.75);
+          }
+        }
+      }
+    }
+
+    .label {
+      top: 12px;
+    }
+
+    &.inputWithIcon {
+      .input {
+        &:focus,
+        &.pushLabelUp {
+          & + .label {
+            transform: translate(52px, -12px) scale(0.75);
+
+            &.rightToLeft {
+              transform: translate(-52px, -12px) scale(0.75);
+            }
+          }
+        }
+      }
+
+      .label {
+        transform: translate(52px, 0px) scale(1);
+
+        &.rightToLeft {
+          transform: translate(-52px, 0) scale(1);
+        }
+      }
+    }
+  }
+
+  &.inputWithIcon {
+    .input {
+      padding-inline-start: 57px;
+
+      &:focus,
+      &.pushLabelUp {
+        & + .label {
+          transform: translate(52px, -20px) scale(0.75);
+          pointer-events: none;
+
+          &.rightToLeft {
+            transform: translate(-52px, -20px) scale(0.75);
+          }
+        }
+      }
+    }
+
+    .label {
+      transform: translate(52px, 0px) scale(1);
+
+      &.rightToLeft {
+        transform: translate(-52px, 0) scale(1);
+      }
+    }
+  }
+
+  &.fileInputWrapper {
+    border-radius: 10px;
+
+    .input {
+      opacity: 0;
+      width: 0.1px;
+      height: 0.1px;
+      position: absolute;
+
+      &:focus {
+        & + .fileInputLabelWrapper {
+          transform: translate(0, -6px) scale(1);
+          pointer-events: initial;
+        }
+      }
+    }
+
+    .fileInputLabelWrapper {
+      width: 100%;
+      height: 50px;
+      padding: 5px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border: 1px solid $grey;
+      transform: translate(0, -6px) scale(1);
+
+      &:hover {
+        border: 1px solid $primary;
+      }
+
+      .fileInputIconWrapper {
+        padding: 0 15px;
+        border-inline-end: 1px solid $primary;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: 1rem;
+          color: $primary;
+        }
+      }
+
+      .labelText {
+        text-align: start;
+
+        .fileInputLabel {
+          color: $label-color;
+          display: block;
+          font-size: 1rem;
+          margin-bottom: 3px;
+        }
+
+        .fileInputPlaceholder {
+          color: $placeholder;
+          display: block;
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+
+  .input,
+  .label {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .input {
+    color: $input-color;
+    border: 1px solid $grey;
+    border-radius: 5px;
+    outline: none;
+    background-color: transparent;
+    min-height: $input-height;
+    transition: border-color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+      color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    padding-inline-start: 9px;
+
+    &.transparentInput {
+      background-color: transparent;
+      color: $white;
+
+      & + .label {
+        color: $label-color;
+      }
+
+      &:not(.invalidInput):hover {
+        border-color: $white;
+      }
+
+      &:not(.invalidInput):focus {
+        border-color: $white;
+
+        & + .label {
+          color: $white;
+        }
+      }
+    }
+
+    &.passwordInput {
+      padding-inline-end: 25px;
+    }
+
+    &:not(.invalidInput):hover {
+      border-color: $primary;
+    }
+
+    &:focus,
+    &.pushLabelUp {
+      & + .label {
+        font-size: 0.8rem;
+        transform: translate(6px, -20px) scale(0.75);
+        pointer-events: none;
+
+        &.rightToLeft {
+          transform: translate(-6px, -12px) scale(0.75);
+        }
+      }
+    }
+
+    &:focus {
+      border-color: $primary;
+
+      & + .label {
+        color: $primary;
+      }
+    }
+
+    &.invalidInput {
+      border-color: $danger;
+
+      & + .label {
+        color: $danger;
+      }
+    }
+  }
+
+  .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 1rem;
+    color: $label-color;
+    height: $input-height;
+    display: flex;
+    align-items: center;
+    cursor: text;
+    padding-inline-start: 4px;
+    transform: translate(6px, 0) scale(1);
+    transform-origin: top left;
+    transform-origin: top left;
+    transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+      transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+
+    &.rightToLeft {
+      transform: translate(-6px, 0) scale(1);
+    }
+  }
+
+  .showPasswordIcon {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: $label-color;
+  }
+}
+
+.radioGroupContainer {
+  display: flex;
+
+  .radio {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: $input-color;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-start: 0;
+    margin-inline-end: 10px;
+  }
+
+  .radioLabel {
+    line-height: 1;
+    transition: 180ms all ease-in-out;
+    opacity: 0.8;
+    user-select: none;
+  }
+
+  .radioInput {
+    display: flex;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-start: 0;
+    margin-inline-end: 5px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .radioInputWrapper input:checked + .radioControlWrapper {
+    .innerRadioControl {
+      fill: $primary;
+      transform: scale(1);
+      transition: transform 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    }
+  }
+
+  .radioControlWrapper {
+    display: flex;
+    position: relative;
+
+    .radioControl {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      flex-shrink: 0;
+      user-select: none;
+      fill: $primary;
+    }
+
+    .innerRadioControl {
+      left: 0;
+      position: absolute;
+      transform: scale(0);
+      transition: transform 150ms cubic-bezier(0.4, 0, 1, 1) 0ms;
+    }
+  }
+}
+
+.checkboxContainer {
+  display: flex;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 0;
+  margin-inline-end: 5px;
+
+  .input {
+    &.validInput {
+      & + .label {
+        color: $label-color;
+      }
+    }
+
+    &.invalidInput {
+      border-color: $danger;
+
+      & + .label {
+        color: $danger;
+      }
+    }
+  }
+
+  .input,
+  .label {
+    cursor: pointer;
+  }
+  .label {
+    margin: 0 5px;
+    user-select: none;
+  }
+}
+
+.errorMessage {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.03333em;
+  text-align: start;
+  line-height: 1.66;
+  margin: 3px 0 0 0;
+  color: $danger;
+}

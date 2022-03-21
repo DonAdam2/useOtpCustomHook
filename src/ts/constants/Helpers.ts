@@ -20,3 +20,9 @@ export const decryptData = (data: any) => {
   const bytes = CryptoJS.AES.decrypt(data, secretKey);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 };
+
+export const objectWithoutKey = <T extends object>(object: T, key: keyof T) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { [key]: deletedKey, ...otherKeys } = object;
+  return otherKeys;
+};
