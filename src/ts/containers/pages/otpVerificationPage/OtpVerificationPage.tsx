@@ -19,7 +19,7 @@ const OtpVerificationPage = () => {
     isVerifiedSuccessfully,
     isSentOtp,
     isInteractingWithBackend,
-    changeOtpChannel,
+    changeOtpChannelHandler,
   } = useOtp({});
 
   return (
@@ -42,7 +42,7 @@ const OtpVerificationPage = () => {
         isVerifiedSuccessfully={isVerifiedSuccessfully}
         isSentOtp={isSentOtp}
         isInteractingWithBackend={isInteractingWithBackend}
-        changeOtpChannel={changeOtpChannel}
+        changeOtpChannel={changeOtpChannelHandler}
       />
     </div>
   );

@@ -21,7 +21,8 @@ const VerifyOtpModal = ({ isModalActive, closeModalHandler }: VerifyOtpModalInte
     isVerifiedSuccessfully,
     isSentOtp,
     isInteractingWithBackend,
-    changeOtpChannel,
+    changeOtpChannelHandler,
+    resetOtpHandler,
   } = useOtp({});
 
   const dontSendOtp = () => {
@@ -38,9 +39,14 @@ const VerifyOtpModal = ({ isModalActive, closeModalHandler }: VerifyOtpModalInte
     }
   };
 
+  const cancelHandler = () => {
+    closeModalHandler();
+    resetOtpHandler();
+  };
+
   const footerBtns = [
     {
-      click: closeModalHandler,
+      click: cancelHandler,
       label: 'cancel',
     },
     {
@@ -72,7 +78,7 @@ const VerifyOtpModal = ({ isModalActive, closeModalHandler }: VerifyOtpModalInte
         isVerifiedSuccessfully={isVerifiedSuccessfully}
         isSentOtp={isSentOtp}
         isInteractingWithBackend={isInteractingWithBackend}
-        changeOtpChannel={changeOtpChannel}
+        changeOtpChannel={changeOtpChannelHandler}
       />
     </Modal>
   );

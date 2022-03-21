@@ -12,8 +12,18 @@ const useOtp = ({ defaultChannel }: UseOtpInterface) => {
     [isSentOtp, setIsSentOtp] = useState(false),
     [isInteractingWithBackend, setIsInteractingWithBackend] = useState(false);
 
+  const resetOtpHandler = useCallback(() => {
+    setChannel(defaultChannel ? defaultChannel : '');
+    setOtpValue('');
+    setProceedWithoutOtp(false);
+    setIsVerifiedSuccessfully(undefined);
+    setIsSentOtp(false);
+    setIsInteractingWithBackend(false);
+  }, [defaultChannel]);
+
   const sendOtpHandler = useCallback(() => {
     setIsInteractingWithBackend(true);
+    //will be replaced with the actual API
     setTimeout(() => {
       console.log('send OTP');
       setIsSentOtp(true);
@@ -23,6 +33,7 @@ const useOtp = ({ defaultChannel }: UseOtpInterface) => {
 
   const resendOtpHandler = useCallback(() => {
     setIsInteractingWithBackend(true);
+    //will be replaced with the actual API
     setTimeout(() => {
       console.log('resend OTP handler');
       setIsInteractingWithBackend(false);
@@ -31,6 +42,7 @@ const useOtp = ({ defaultChannel }: UseOtpInterface) => {
 
   const verifyOtpHandler = useCallback(() => {
     setIsInteractingWithBackend(true);
+    //will be replaced with the actual API
     setTimeout(() => {
       console.log('verify OTP', otpValue);
       setIsVerifiedSuccessfully(true);
@@ -38,7 +50,7 @@ const useOtp = ({ defaultChannel }: UseOtpInterface) => {
     }, 1000);
   }, [otpValue]);
 
-  const changeOtpChannel = useCallback(() => {
+  const changeOtpChannelHandler = useCallback(() => {
     setIsSentOtp(false);
     setOtpValue('');
     setChannel(defaultChannel ? defaultChannel : '');
@@ -51,13 +63,14 @@ const useOtp = ({ defaultChannel }: UseOtpInterface) => {
     setOtpValue,
     proceedWithoutOtp,
     setProceedWithoutOtp,
-    sendOtpHandler,
-    resendOtpHandler,
-    verifyOtpHandler,
     isVerifiedSuccessfully,
     isSentOtp,
     isInteractingWithBackend,
-    changeOtpChannel,
+    sendOtpHandler,
+    resendOtpHandler,
+    verifyOtpHandler,
+    changeOtpChannelHandler,
+    resetOtpHandler,
   };
 };
 
