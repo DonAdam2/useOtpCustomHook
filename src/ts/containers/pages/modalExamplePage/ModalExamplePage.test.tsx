@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react';
 import ModalExamplePagePage from './ModalExamplePagePage';
 
 describe('<ModalExamplePagePage />', () => {
-  test('renders page name (modalExamplePagePage)', () => {
+  test('renders page name (modalExamplePage)', () => {
     render(<ModalExamplePagePage />);
-    const title = screen.getByText(/modalExamplePagePage/i);
+    const title = screen.getByText(/modalExamplePage/i);
     expect(title).toBeInTheDocument();
   });
 });

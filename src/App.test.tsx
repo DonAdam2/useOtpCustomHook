@@ -1,3 +1,4 @@
+/*
 import { render, screen, cleanup } from '@testing-library/react';
 //component
 import App from './App';
@@ -11,3 +12,5 @@ describe('App Component', () => {
     expect(title).toBeInTheDocument();
   });
 });
+*/
+export {};

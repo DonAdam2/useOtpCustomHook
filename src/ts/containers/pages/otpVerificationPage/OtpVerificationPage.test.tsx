@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react';
 import OtpVerificationPagePage from './OtpVerificationPagePage';
 
 describe('<OtpVerificationPagePage />', () => {
-  test('renders page name (otpVerificationPagePage)', () => {
+  test('renders page name (otpVerificationPage)', () => {
     render(<OtpVerificationPagePage />);
-    const title = screen.getByText(/otpVerificationPagePage/i);
+    const title = screen.getByText(/otpVerificationPage/i);
     expect(title).toBeInTheDocument();
   });
 });
