@@ -1,56 +1,35 @@
 const path = require('path'),
-  //used to check if the given file exists
-  fs = require('fs'),
-  //dotenv
-  dotenv = require('dotenv'),
   //plugins
-  { DefinePlugin } = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-  autoprefixer = require('autoprefixer'),
   EsLintPlugin = require('eslint-webpack-plugin'),
+  ReactRefreshTypescript = require('react-refresh-typescript'),
+  //runs TypeScript type checker on a separate process, which speeds up webpack compilation time.
+  ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'),
   //constants
   {
-    port,
     devServer,
     jsSubDirectory,
     isCssModules,
-    metaInfo: { title, description, url, keywords },
+    metaInfo: { title, description, keywords },
   } = require('./constants'),
-  PATHS = require('./paths'),
-  fullDevServerUrl = `${devServer}:${port}`;
+  { srcPath, outputSrcPath, jestPath, publicDirPath } = require('./paths');
 
 module.exports = (env, options) => {
   // the mode variable is passed in package.json scripts (development, production)
-  const isDevelopment = options.mode === 'development',
-    /*================ setup environments variables ===================*/
-    // create a fallback path (the production .env)
-    basePath = `${PATHS.environments}/.env`,
-    // concatenate the environment name to the base path to specify the correct env file!
-    envPath = `${basePath}.${options.mode}`,
-    // check if the file exists, otherwise fall back to the production .env
-    finalPath = fs.existsSync(envPath) ? envPath : basePath,
-    // set the path parameter in the dotenv config
-    fileEnv = dotenv.config({ path: finalPath }).parsed,
-    // create an object from the current env file with all keys
-    envKeys = Object.keys(fileEnv).reduce((prev, next) => {
-      prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
-      return prev;
-    }, {});
-  /*================ finish setup environments variables ===================*/
+  const isDevelopment = options.mode === 'development';
 
   return {
-    entry: `${PATHS.src}/index.tsx`,
+    entry: `${srcPath}/index.tsx`,
     output: {
-      // __dirname is the absolute path to the root directory of our app
-      path: PATHS.outputSrc,
+      path: outputSrcPath,
       // hashes are very important in production for caching purposes
       filename: jsSubDirectory + 'bundle.[contenthash:8].js',
       // used for the lazy loaded component
       chunkFilename: jsSubDirectory + '[name].[contenthash:8].js',
       publicPath: '/',
       assetModuleFilename: (pathData) => {
-        //allows us to have the same folder structure of assets as we have it in /src
+        //allows us to have the same folder structure of assets as we have it in /public
         const filepath = path.dirname(pathData.filename).split('/').slice(1).join('/');
         return `${filepath}/[name].[hash][ext][query]`;
       },
@@ -71,12 +50,12 @@ module.exports = (env, options) => {
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx', '.json'],
-      // declaring alias for reducing the use of relative path
+      // declaring aliases to reduce the use of relative path
       alias: {
-        '@/ts': `${PATHS.src}/ts`,
-        '@/scss': `${PATHS.src}/scss`,
-        '@/img': `${PATHS.src}/assets/images`,
-        '@/jest': PATHS.jest,
+        '@/jest': jestPath,
+        '@/ts': `${srcPath}/ts`,
+        '@/scss': `${srcPath}/scss`,
+        '@/public': publicDirPath,
       },
     },
     module: {
@@ -84,15 +63,31 @@ module.exports = (env, options) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: { cacheDirectory: true },
+          loader: 'babel-loader',
+          options: {
+            // This is a feature of `babel-loader` for webpack (not Babel itself).
+            // It enables caching results in ./node_modules/.cache/babel-loader/
+            // directory for faster rebuilds.
+            cacheDirectory: true,
+            cacheCompression: false,
+            compact: !isDevelopment,
           },
         },
         {
           test: /\.(ts|tsx)$/,
-          use: ['ts-loader'],
           exclude: /node_modules/,
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers: () => ({
+              //enable react refresh in development only
+              before: [isDevelopment && ReactRefreshTypescript()].filter(Boolean),
+            }),
+            /*
+             * ts-loader won't work with HMR unless transpileOnly is set to true
+             * this option is set to true by default because we are using (fork-ts-checker-webpack-plugin)
+             */
+            //transpileOnly: isDevelopment,
+          },
         },
         {
           test: /\.(jpe?g|svg|png|gif|ico|eot|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?$/i,
@@ -130,7 +125,7 @@ module.exports = (env, options) => {
                           return 'local';
                         },
                         localIdentName: isDevelopment ? '[name]_[local]' : '[contenthash:base64]',
-                        localIdentContext: PATHS.src,
+                        localIdentContext: srcPath,
                         localIdentHashSalt: 'react-boilerplate',
                         exportLocalsConvention: 'camelCaseOnly',
                       },
@@ -186,21 +181,23 @@ module.exports = (env, options) => {
       new EsLintPlugin({
         extensions: ['.js', '.ts', '.tsx', '.json'],
       }),
+      new ForkTsCheckerWebpackPlugin(),
       new HtmlWebpackPlugin({
         title,
-        template: `${PATHS.src}/index.html`,
+        template: `${publicDirPath}/index.html`,
         filename: 'index.html',
         inject: 'body',
-        favicon: `${PATHS.src}/assets/images/favicon.png`,
+        favicon: `${publicDirPath}/assets/images/favicon.png`,
         meta: {
+          title,
           description,
           keywords,
-          url: isDevelopment ? fullDevServerUrl : url,
+          //coming from scripts/start.js file
+          ...(isDevelopment && { url: `${devServer}:${options.port}` }),
           'apple-mobile-web-app-capable': 'yes',
           'mobile-web-app-capable': 'yes',
         },
       }),
-      new DefinePlugin(envKeys),
     ],
   };
 };

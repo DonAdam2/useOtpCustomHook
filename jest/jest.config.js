@@ -1,4 +1,5 @@
-const { rootDirectory } = require('../buildTools/constants');
+const path = require('path'),
+  { rootDirectory, devServer, publicDirectory } = require('../buildTools/constants');
 
 module.exports = {
   // A list of paths to directories that Jest should use to search for files in.
@@ -14,7 +15,10 @@ module.exports = {
   testEnvironment: 'jsdom',
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': 'babel-jest',
+    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': [
+      'babel-jest',
+      { configFile: path.join(__dirname, '../babel.config.js') },
+    ],
     '^.+\\.css$': '<rootDir>/transforms/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': '<rootDir>/transforms/fileTransform.js',
   },
@@ -29,12 +33,12 @@ module.exports = {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',
     // declaring alias for reducing the use of relative path
     '^@/jest(.*)$': '<rootDir>$1',
-    '^@/ts(.*)$': '<rootDir>/../src/ts/$1',
-    '^@/scss(.*)$': '<rootDir>/../src/scss/$1',
-    '^@/img(.*)$': '<rootDir>/../src/assets/images/$1',
+    '^@/ts(.*)$': `<rootDir>/../${rootDirectory}/ts/$1`,
+    '^@/scss(.*)$': `<rootDir>/../${rootDirectory}/scss/$1`,
+    '^@/public(.*)$': `<rootDir>/../${publicDirectory}/$1`,
   },
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'ts', 'tsx', 'json', 'jsx', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'json', 'js', 'jsx', 'node'],
   // This option allows you to use custom watch plugins
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   // Automatically reset mock state before every test
@@ -44,11 +48,13 @@ module.exports = {
   //an array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     `../${rootDirectory}/**/*.{js,jsx,ts,tsx}`,
+    //ignore the following from coverage
+    `!../${rootDirectory}/index.tsx`,
     `!../${rootDirectory}/**/*.d.ts`,
-    `!../${rootDirectory}/js/store/**/*.{js,ts}`,
-    `!../${rootDirectory}/js/services/**/*.{js,ts}`,
-    `!../${rootDirectory}/js/managers/**/*.{js,ts}`,
-    `!../${rootDirectory}/js/constants/**/*.{js,ts}`,
+    `!../${rootDirectory}/ts/store/**/*.{js,ts}`,
+    `!../${rootDirectory}/ts/services/**/*.{js,ts}`,
+    `!../${rootDirectory}/ts/managers/**/*.{js,ts}`,
+    `!../${rootDirectory}/ts/constants/**/*.{js,ts}`,
   ],
   coverageThreshold: {
     global: {
@@ -60,6 +66,8 @@ module.exports = {
   },
   // Make calling deprecated APIs throw helpful error messages
   errorOnDeprecated: true,
-  // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
-  testURL: 'http://localhost',
+  testEnvironmentOptions: {
+    // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
+    url: devServer,
+  },
 };

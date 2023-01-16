@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, Fragment, FC } from 'react';
+import { useCallback, useEffect, useRef, Fragment, FC, PropsWithChildren } from 'react';
 //interfaces
 import {
   ModalBtnInterface,
   ModalInterface,
 } from '@/ts/interfaces/components/shared/ModalInterface';
 
-const Modal: FC<ModalInterface> = ({
+const Modal: FC<PropsWithChildren<ModalInterface>> = ({
   headerCloseHandler,
   show,
   enableHeader,
@@ -22,7 +22,7 @@ const Modal: FC<ModalInterface> = ({
   const modalWrapper = useRef(null);
 
   const shortcutsHandler = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       if (event.key === 'Escape' && headerCloseHandler && show) headerCloseHandler();
     },
     [headerCloseHandler, show]

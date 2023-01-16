@@ -65,6 +65,6 @@ It runs test coverage.
 
 Clears test cache.
 
-### `yarn generate` **_component_** || **_container_** || **_page_** || **_hook_** || **_service_** || **_reducer_**
+### `yarn generate` **_component_** || **_container_** || **_page_** || **_hook_** || **_service_**
 
-- It creates a boilerplate for component, container, page, custom hook, service or reducer.
+- It creates a boilerplate for component, container, page, custom hook or service.

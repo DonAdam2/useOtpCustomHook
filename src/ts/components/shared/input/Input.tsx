@@ -281,7 +281,7 @@ const Input = ({
         </select>
       );
       break;
-    case 'select-group':
+    case 'select-group': {
       const options = elementConfig.options as OptionInterface[];
 
       inputElement = (
@@ -313,6 +313,7 @@ const Input = ({
         </select>
       );
       break;
+    }
     default:
       inputElement = (
         <input

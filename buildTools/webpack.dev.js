@@ -1,20 +1,27 @@
-const webpack = require('webpack'),
-  // the following 2 lines is to merge common webpack configurations with this file
-  { merge } = require('webpack-merge'),
-  common = require('./webpack.common.js');
+process.env.NODE_ENV = 'development';
+
+// the following 2 lines is to merge common webpack configurations with this file
+const { merge } = require('webpack-merge'),
+  common = require('./webpack.common.js'),
+  //plugins
+  Dotenv = require('dotenv-webpack'),
+  //enables fast refresh (this is the new feature which overrides hot reloading)
+  ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'),
+  //constants
+  { protocol } = require('./constants'),
+  { environmentsPath } = require('./paths');
 
 module.exports = (env, options) => {
   return merge(common(env, options), {
     mode: 'development',
-    resolve: {
-      alias: {
-        'react-dom': '@hot-loader/react-dom',
-      },
-    },
     devtool: 'inline-source-map',
     //required for hot reload
     target: 'web',
     devServer: {
+      //enable HTTPS
+      server: protocol,
+      //enable hot reloading
+      hot: true,
       // Enable gzip compression of generated files.
       compress: true,
       // open development server
@@ -37,8 +44,12 @@ module.exports = (env, options) => {
       },
     },
     plugins: [
-      // Only update what has changed on hot reload
-      new webpack.HotModuleReplacementPlugin(),
+      // enables fast refresh
+      new ReactRefreshWebpackPlugin(),
+      new Dotenv({
+        path: `${environmentsPath}/.env.development`,
+        systemvars: true, //Set to true if you would rather load all system variables as well (useful for CI purposes)
+      }),
     ],
   });
 };

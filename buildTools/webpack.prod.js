@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production';
+
 // the following 2 lines is to merge common webpack configurations with this file
 const { merge } = require('webpack-merge'),
   common = require('./webpack.common.js'),
@@ -6,8 +8,11 @@ const { merge } = require('webpack-merge'),
   CssMinimizerPlugin = require('css-minimizer-webpack-plugin'),
   TerserJSPlugin = require('terser-webpack-plugin'),
   { CleanWebpackPlugin } = require('clean-webpack-plugin'),
+  Dotenv = require('dotenv-webpack'),
+  /* PLOP_INJECT_PWA_IMPORTS */
   //constants
-  { cssSubDirectory } = require('./constants');
+  { cssSubDirectory } = require('./constants'),
+  { environmentsPath } = require('./paths');
 
 module.exports = (env, options) => {
   return merge(common(env, options), {
@@ -66,6 +71,11 @@ module.exports = (env, options) => {
         // used for the lazy loaded component
         chunkFilename: cssSubDirectory + '[id].[contenthash:8].css',
       }),
+      new Dotenv({
+        path: `${environmentsPath}/.env`,
+        systemvars: true, //Set to true if you would rather load all system variables as well (useful for CI purposes)
+      }),
+      /* PLOP_INJECT_PWA_PLUGINS */
     ],
   });
 };
