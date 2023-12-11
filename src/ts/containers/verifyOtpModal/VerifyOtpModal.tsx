@@ -55,8 +55,8 @@ const VerifyOtpModal = ({ isModalActive, closeModalHandler }: VerifyOtpModalInte
       disabled: proceedWithoutOtp
         ? false
         : isSentOtp
-        ? isInteractingWithBackend || !otpValue
-        : isInteractingWithBackend || !channel,
+          ? isInteractingWithBackend || !otpValue
+          : isInteractingWithBackend || !channel,
     },
   ];
 
