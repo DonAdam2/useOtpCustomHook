@@ -23,7 +23,7 @@ const OtpVerificationPage = () => {
   } = useOtp({});
 
   return (
-    <div className={classes.otpVerificationWrapper}>
+    <div className={classes.otpVerificationPageWrapper}>
       <OtpVerificationForm
         isDisplayChannelSelection
         isDisplayProceedWithoutOtp

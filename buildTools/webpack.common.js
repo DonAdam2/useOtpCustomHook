@@ -3,7 +3,6 @@ const path = require('path'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   EsLintPlugin = require('eslint-webpack-plugin'),
-  postcssPresetEnv = require('postcss-preset-env'),
   ReactRefreshTypescript = require('react-refresh-typescript'),
   //runs TypeScript type checker on a separate process, which speeds up webpack compilation time.
   ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin'),
@@ -14,7 +13,9 @@ const path = require('path'),
     isCssModules,
     metaInfo: { title, description, keywords },
   } = require('./constants'),
-  { srcPath, outputSrcPath, jestPath, publicDirPath } = require('./paths');
+  { srcPath, outputSrcPath, jestPath, publicDirPath } = require('./paths'),
+  //helpers
+  { generateScopedName } = require('./helpers');
 
 module.exports = (env, options) => {
   // the mode variable is passed in package.json scripts (development, production)
@@ -118,17 +119,23 @@ module.exports = (env, options) => {
                       modules: {
                         //exclude external styles from css modules transformation
                         auto: (resourcePath) => !resourcePath.includes('node_modules'),
-                        mode: (resourcePath) => {
-                          if (/global.scss$/i.test(resourcePath)) {
-                            return 'global';
-                          }
-
-                          return 'local';
-                        },
-                        localIdentName: isDevelopment ? '[name]_[local]' : '[contenthash:base64]',
+                        mode: (resourcePath) =>
+                          /global.scss$/i.test(resourcePath) ? 'global' : 'local',
+                        ...(isDevelopment
+                          ? {
+                              //e.g. box_box-wrapper
+                              localIdentName: '[name]_[local]',
+                            }
+                          : {
+                              //e.g. b_i
+                              getLocalIdent: (context, localIdentName, localName) => {
+                                return generateScopedName(localName, context.resourcePath);
+                              },
+                            }),
                         localIdentContext: srcPath,
                         localIdentHashSalt: 'react-boilerplate',
-                        exportLocalsConvention: 'camelCaseOnly',
+                        exportLocalsConvention: 'camel-case-only',
+                        namedExport: false,
                       },
                     }
                   : {}),
@@ -141,11 +148,14 @@ module.exports = (env, options) => {
                   ident: 'postcss',
                   plugins: [
                     'postcss-flexbugs-fixes',
-                    postcssPresetEnv({
-                      stage: 0,
-                      //uncomment the following if you want to prefix grid properties
-                      // autoprefixer: { grid: true },
-                    }),
+                    [
+                      'postcss-preset-env',
+                      {
+                        stage: 0,
+                        //uncomment the following if you want to prefix grid properties
+                        // autoprefixer: { grid: true },
+                      },
+                    ],
                     // Adds PostCSS Normalize as the reset css with default options,
                     // so that it honors browserslist config in package.json
                     // which in turn let's users customize the target behavior as per their needs.
