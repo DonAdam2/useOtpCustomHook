@@ -1,12 +1,17 @@
+@use 'sass:color';
+@use '../../generic/variables' as vars;
+
 .modal {
   margin: 0 auto;
   z-index: 500;
-  background-color: $white;
+  background-color: vars.$white;
   width: calc(100% - 1rem);
   max-width: 600px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
   box-sizing: border-box;
   transition: all 0.3s ease-out;
   cursor: initial;
@@ -35,8 +40,11 @@
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition:
+      color 0.15s ease-in-out,
+      background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
     margin-right: 8px;
 
     &:last-child {
@@ -52,9 +60,9 @@
     }
 
     &.modal-btn-primary {
-      color: $white;
-      background-color: $primary;
-      border-color: $primary;
+      color: vars.$white;
+      background-color: vars.$primary;
+      border-color: vars.$primary;
 
       &:hover {
         background-color: #0069d9;
@@ -62,15 +70,15 @@
       }
 
       &:disabled {
-        background-color: lighten($primary, 30%);
-        border-color: lighten($primary, 30%);
+        background-color: color.adjust(vars.$primary, $lightness: 30%);
+        border-color: color.adjust(vars.$primary, $lightness: 30%);
       }
     }
 
     &.modal-btn-secondary {
-      color: $white;
-      background-color: $secondary;
-      border-color: $secondary;
+      color: vars.$white;
+      background-color: vars.$secondary;
+      border-color: vars.$secondary;
 
       &:hover {
         background-color: #5a6268;
@@ -78,15 +86,15 @@
       }
 
       &:disabled {
-        background-color: lighten($secondary, 30%);
-        border-color: lighten($secondary, 30%);
+        background-color: color.adjust(vars.$secondary, $lightness: 30%);
+        border-color: color.adjust(vars.$secondary, $lightness: 30%);
       }
     }
 
     &.modal-btn-success {
-      color: $white;
-      background-color: $success;
-      border-color: $success;
+      color: vars.$white;
+      background-color: vars.$success;
+      border-color: vars.$success;
 
       &:hover {
         background-color: #218838;
@@ -94,15 +102,15 @@
       }
 
       &:disabled {
-        background-color: lighten($success, 30%);
-        border-color: lighten($success, 30%);
+        background-color: color.adjust(vars.$success, $lightness: 30%);
+        border-color: color.adjust(vars.$success, $lightness: 30%);
       }
     }
 
     &.modal-btn-danger {
-      color: $white;
-      background-color: $danger;
-      border-color: $danger;
+      color: vars.$white;
+      background-color: vars.$danger;
+      border-color: vars.$danger;
 
       &:hover {
         background-color: #c82333;
@@ -110,14 +118,14 @@
       }
 
       &:disabled {
-        background-color: lighten($danger, 30%);
-        border-color: lighten($danger, 30%);
+        background-color: color.adjust(vars.$danger, $lightness: 30%);
+        border-color: color.adjust(vars.$danger, $lightness: 30%);
       }
     }
 
     &.modal-btn-warning {
-      background-color: $warning;
-      border-color: $warning;
+      background-color: vars.$warning;
+      border-color: vars.$warning;
 
       &:hover {
         background-color: #e0a800;
@@ -125,15 +133,15 @@
       }
 
       &:disabled {
-        background-color: lighten($warning, 30%);
-        border-color: lighten($warning, 30%);
+        background-color: color.adjust(vars.$warning, $lightness: 30%);
+        border-color: color.adjust(vars.$warning, $lightness: 30%);
       }
     }
 
     &.modal-btn-info {
-      color: $white;
-      background-color: $info;
-      border-color: $info;
+      color: vars.$white;
+      background-color: vars.$info;
+      border-color: vars.$info;
 
       &:hover {
         background-color: #138496;
@@ -141,15 +149,15 @@
       }
 
       &:disabled {
-        background-color: lighten($info, 30%);
-        border-color: lighten($info, 30%);
+        background-color: color.adjust(vars.$info, $lightness: 30%);
+        border-color: color.adjust(vars.$info, $lightness: 30%);
       }
     }
 
     &.modal-btn-dark {
-      color: $white;
-      background-color: $dark;
-      border-color: $dark;
+      color: vars.$white;
+      background-color: vars.$dark;
+      border-color: vars.$dark;
 
       &:hover {
         background-color: #23272b;
@@ -157,8 +165,8 @@
       }
 
       &:disabled {
-        background-color: lighten($dark, 30%);
-        border-color: lighten($dark, 30%);
+        background-color: color.adjust(vars.$dark, $lightness: 30%);
+        border-color: color.adjust(vars.$dark, $lightness: 30%);
       }
     }
 
@@ -199,7 +207,7 @@
       font-weight: 700;
       line-height: 1;
       color: black;
-      text-shadow: 0 1px 0 $white;
+      text-shadow: 0 1px 0 vars.$white;
       outline: none;
       opacity: 0.2;
       transition: opacity 0.15s;

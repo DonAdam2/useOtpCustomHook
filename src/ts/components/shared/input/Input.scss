@@ -1,4 +1,4 @@
-@import '../../../../scss/generic/variables';
+@use '../../../../scss/generic/variables' as vars;
 
 .input-wrapper {
   position: relative;
@@ -21,17 +21,17 @@
 
   .iconWrapper {
     width: 53px;
-    height: calc(#{$input-height} / 1.3);
-    bottom: calc(#{$input-height} / 9);
+    height: calc(#{vars.$input-height} / 1.3);
+    bottom: calc(#{vars.$input-height} / 9);
     position: absolute;
     z-index: 1;
     left: 0;
-    border-inline-end: 1px solid $primary;
+    border-inline-end: 1px solid vars.$primary;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $primary;
-    fill: $primary;
+    color: vars.$primary;
+    fill: vars.$primary;
 
     &.rightToLeft {
       right: 0;
@@ -45,10 +45,10 @@
   width: 100%;
 
   &.outlinedInputContainer {
-    min-height: $input-height * 1.75;
+    min-height: vars.$input-height * 1.75;
 
     .input {
-      min-height: $input-height * 1.75;
+      min-height: vars.$input-height * 1.75;
 
       &:focus,
       &.pushLabelUp {
@@ -141,23 +141,23 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      border: 1px solid $grey;
+      border: 1px solid vars.$grey;
       transform: translate(0, -6px) scale(1);
 
       &:hover {
-        border: 1px solid $primary;
+        border: 1px solid vars.$primary;
       }
 
       .fileInputIconWrapper {
         padding: 0 15px;
-        border-inline-end: 1px solid $primary;
+        border-inline-end: 1px solid vars.$primary;
         align-self: stretch;
         display: flex;
         align-items: center;
 
         i {
           font-size: 1rem;
-          color: $primary;
+          color: vars.$primary;
         }
       }
 
@@ -165,14 +165,14 @@
         text-align: start;
 
         .fileInputLabel {
-          color: $label-color;
+          color: vars.$label-color;
           display: block;
           font-size: 1rem;
           margin-bottom: 3px;
         }
 
         .fileInputPlaceholder {
-          color: $placeholder;
+          color: vars.$placeholder;
           display: block;
           font-size: 0.7rem;
         }
@@ -187,33 +187,34 @@
   }
 
   .input {
-    color: $input-color;
-    border: 1px solid $grey;
+    color: vars.$input-color;
+    border: 1px solid vars.$grey;
     border-radius: 5px;
     outline: none;
     background-color: transparent;
-    min-height: $input-height;
-    transition: border-color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    min-height: vars.$input-height;
+    transition:
+      border-color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
       color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
     padding-inline-start: 9px;
 
     &.transparentInput {
       background-color: transparent;
-      color: $white;
+      color: vars.$white;
 
       & + .label {
-        color: $label-color;
+        color: vars.$label-color;
       }
 
       &:not(.invalidInput):hover {
-        border-color: $white;
+        border-color: vars.$white;
       }
 
       &:not(.invalidInput):focus {
-        border-color: $white;
+        border-color: vars.$white;
 
         & + .label {
-          color: $white;
+          color: vars.$white;
         }
       }
     }
@@ -223,7 +224,7 @@
     }
 
     &:not(.invalidInput):hover {
-      border-color: $primary;
+      border-color: vars.$primary;
     }
 
     &:focus,
@@ -240,18 +241,18 @@
     }
 
     &:focus {
-      border-color: $primary;
+      border-color: vars.$primary;
 
       & + .label {
-        color: $primary;
+        color: vars.$primary;
       }
     }
 
     &.invalidInput {
-      border-color: $danger;
+      border-color: vars.$danger;
 
       & + .label {
-        color: $danger;
+        color: vars.$danger;
       }
     }
   }
@@ -262,8 +263,8 @@
     left: 0;
     right: 0;
     font-size: 1rem;
-    color: $label-color;
-    height: $input-height;
+    color: vars.$label-color;
+    height: vars.$input-height;
     display: flex;
     align-items: center;
     cursor: text;
@@ -271,7 +272,8 @@
     transform: translate(6px, 0) scale(1);
     transform-origin: top left;
     transform-origin: top left;
-    transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transition:
+      color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
       transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 
     &.rightToLeft {
@@ -285,7 +287,7 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: $label-color;
+    color: vars.$label-color;
   }
 }
 
@@ -296,7 +298,7 @@
     display: flex;
     align-items: center;
     font-size: 1rem;
-    color: $input-color;
+    color: vars.$input-color;
     margin-block-start: 5px;
     margin-block-end: 5px;
     margin-inline-start: 0;
@@ -326,7 +328,7 @@
 
   .radioInputWrapper input:checked + .radioControlWrapper {
     .innerRadioControl {
-      fill: $primary;
+      fill: vars.$primary;
       transform: scale(1);
       transition: transform 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
     }
@@ -343,7 +345,7 @@
       transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       flex-shrink: 0;
       user-select: none;
-      fill: $primary;
+      fill: vars.$primary;
     }
 
     .innerRadioControl {
@@ -365,15 +367,15 @@
   .input {
     &.validInput {
       & + .label {
-        color: $label-color;
+        color: vars.$label-color;
       }
     }
 
     &.invalidInput {
-      border-color: $danger;
+      border-color: vars.$danger;
 
       & + .label {
-        color: $danger;
+        color: vars.$danger;
       }
     }
   }
@@ -395,5 +397,5 @@
   text-align: start;
   line-height: 1.66;
   margin: 3px 0 0 0;
-  color: $danger;
+  color: vars.$danger;
 }
