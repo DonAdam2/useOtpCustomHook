@@ -78,8 +78,9 @@ module.exports = [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
 
-      // React Hooks recommended
-      ...reactHooks.configs.recommended.rules,
+      // React Hooks rules (not spreading recommended which includes compiler rules in v7)
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
 
       // Custom overrides from original config
       'prettier/prettier': 'error',
@@ -88,10 +89,6 @@ module.exports = [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-unused-expressions': 'off',
       'react/no-unescaped-entities': 'off',
-
-      // Ensure React hooks rules are active
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
     },
     settings: {
       'import/resolver': 'webpack',
