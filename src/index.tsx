@@ -2,8 +2,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 //import meta image
 import '@/public/assets/images/metaImage.jpg';
-// required for babel polyfills
-import 'regenerator-runtime/runtime';
 //root component
 import App from './App';
 //styles
