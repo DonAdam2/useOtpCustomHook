@@ -14,9 +14,6 @@ COPY . ./
 #################################
 FROM application_base as development
 
-# Remove unwanted directories
-RUN rm -rf jest
-
 # Remove unwnated files
 RUN rm environments/.env
 

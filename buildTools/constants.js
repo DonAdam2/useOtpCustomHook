@@ -4,7 +4,6 @@ module.exports = {
   port: 3000,
   protocol,
   devServer: `${protocol}://localhost`,
-  jestDirectory: 'jest',
   rootDirectory: 'src',
   buildToolsDirectory: 'buildTools',
   publicDirectory: 'public',

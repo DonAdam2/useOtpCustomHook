@@ -6,13 +6,11 @@ const path = require('path'),
     rootDirectory,
     publicDirectory,
     environmentsDirectory,
-    jestDirectory,
   } = require('./constants');
 
 module.exports = {
   srcPath: path.join(projectPath, rootDirectory),
   publicDirPath: path.join(projectPath, publicDirectory),
-  jestPath: path.join(projectPath, jestDirectory),
   outputSrcPath: path.resolve(projectPath, outputDirectory),
   environmentsPath: path.resolve(projectPath, environmentsDirectory),
 };
