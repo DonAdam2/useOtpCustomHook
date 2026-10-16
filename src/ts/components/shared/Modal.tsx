@@ -66,7 +66,7 @@ const Modal: FC<PropsWithChildren<ModalInterface>> = ({
 
   const renderModalBtns = (buttons: ModalBtnInterface[]) =>
     buttons.map((el, i) => {
-      let buttonColorClass = '';
+      let buttonColorClass: string;
 
       switch (el.color) {
         case 'red':

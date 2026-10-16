@@ -93,7 +93,8 @@ module.exports = [
     settings: {
       'import/resolver': 'webpack',
       react: {
-        version: 'detect',
+        // 'detect' relies on context.getFilename(), which was removed in ESLint 10
+        version: require('react/package.json').version,
       },
     },
   },

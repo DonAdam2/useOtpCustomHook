@@ -22,13 +22,7 @@ interface ErrorsInterface {
 }
 
 export type InputElementTypes =
-  | 'input'
-  | 'radio-group'
-  | 'checkbox'
-  | 'textarea'
-  | 'select'
-  | 'select-group'
-  | 'file-input';
+  'input' | 'radio-group' | 'checkbox' | 'textarea' | 'select' | 'select-group' | 'file-input';
 
 export interface InputInterface {
   invalid?: boolean;
